@@ -1,0 +1,67 @@
+form{
+	
+	background: rgba(195,195,195,0.5);
+	display: inline-block;
+	width: 100%;
+	height: 50px;
+	margin: 1px 0px -1px;
+	padding: 0px;
+}
+li{
+	display: inline-block;
+	padding: 0px;
+}
+input{
+	width: 100px;
+	height: 25px;
+	font-size: 15px;
+	font-weight: bold;
+}
+label{
+	display: inline-block;
+}
+#id_nick, #id_password{
+	font-size: 10px;
+	height: 25px;
+	width: 200px;
+	margin-top: -2px;
+}
+#titulologin{
+	float: left;
+	margin: 5px auto 5px;
+	padding: 1px;
+}
+#lista{
+	padding: 1px;
+	float: right;
+	margin: auto 120px;
+}
+#enviar{
+	background: white;
+	margin-top: 17px;
+	margin-right: -630px;
+	float: right;
+}
+
+/******registrar modalidad*****/
+#id_nombre_instructor{
+	width: 1270px;
+}
+#id_lunes, #id_martes, #id_miercoles, #id_jueves, #id_viernes, #id_sabado{
+	width: 200px;
+}
+#id_costo_sesion, #id_costo_mensual{
+	width: 400px;
+}
+#id_descripcion{
+	width: 1270px;
+}
+
+/*********	contacto *****/
+#contacto{
+	background: white;
+	box-shadow: 10px 10px 10px 5px #000;
+}
+#enviar_contacto{
+	margin-top: -8px;
+}

@@ -1,0 +1,20 @@
+{%extends "base.html"%}
+
+{%block contenido%}
+
+	<div class="wrapper">
+		<div class="form">		
+			<form action="/guardar/" method="post">
+				<h2> Registro</h2>
+				{%csrf_token%}
+				{{usform.as_ul}}
+				<input type="submit" value="Enviar"/>
+			</form>
+			<div class="errores">
+				{{error}}
+			</div>
+			
+		</div>
+	</div>
+	
+{%endblock%}

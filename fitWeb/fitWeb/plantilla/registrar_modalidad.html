@@ -1,0 +1,21 @@
+{%extends "base.html"%}
+{%block link%}
+    <link rel="stylesheet" type="text/css" href="/static/css/mystyle.css">
+{%endblock%}
+{%block contenido%}
+
+	<div class="wrapper">
+		<div class="form">		
+			<form action="" method="post">
+				<h2> Registro Modalidad</h2>
+				{%csrf_token%}
+				{{usform.as_ul}}
+				<input type="submit" value="Enviar"/>
+			</form>
+			<div class="errores">
+				{{error}}
+			</div>
+		</div>
+	</div>
+	
+{%endblock%}

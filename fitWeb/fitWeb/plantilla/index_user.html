@@ -1,0 +1,148 @@
+{%extends "base.html"%}
+
+{%block link%}
+    <link rel="stylesheet" type="text/css" href="/static/css/mystyle.css">
+{%endblock%}
+
+{%block menuli%}
+    Salir
+{%endblock%}
+
+{%block inicio %}
+<!-- INTRO -->
+       <!-- LOGIN -->
+        <div id="login">
+            <form action="" method="post">
+                <h2 id="titulologin">Bienvenido a:</h2>
+            </form>
+        </div>
+       <div id="intro" class="row">            
+        <!-- BANNER -->
+            <div class="small-12 columns text-center title">
+                <div class="fixed-title">
+                    <div class="intro-info">
+                        <img src="/static/img/logo.png" alt="" />
+                        <h1>FitWEB</h1>
+                        <div class="lines lines-center"></div>
+                        <h2>Dieta&nutricioN</h2>
+                    </div>
+                </div>  
+                <a href="#services">
+                    <div class="arrow-up"></div>
+                </a>    
+            </div>
+        </div>
+{%endblock%}
+
+{%block contenido%}
+   
+<!-- SERVICIOS -->   
+            <div id="services" class="row">
+                <div class="small-11 large-10 columns small-centered text-center">
+                    <h2>Servicios</h2>
+                    <div class="lines"></div>
+                </div>
+                <div class="row">
+                    <div class="small-11 large-10 columns small-centered">
+                        <div class="row">
+                            <div class="small-12 large-3 columns text-center">
+                                <div class="serv">
+                                    <div class="circle-border">
+                                        <div class="circle">
+                                            <div class="icon-google icon-services"></div>
+                                        </div>
+                                    </div>
+                                    <h3>Gimnasio</h3>
+                                    <p>Maquinas capaces de ofrecer a sus clientes una atención personalizada, con la última tecnología y las últimas tendencias de mercado, así como una amplia gama de servicios como: ejercicios, fitnes, culturismo, dietas y nutrición deportiva visítanos y veras que tus días serán mejores te esperamos.</p>
+                                </div>
+                            </div>
+                            <div class="small-12 large-3 columns text-center">
+                                <div class="serv">
+                                    <div class="circle-border">
+                                        <div class="circle">
+                                            <div class="icon-quill icon-services"></div>
+                                        </div>
+                                    </div>
+                                    <h3>Control</h3>
+                                    <p>Nos ayudara a controlar el peso ya que el control que ofrecemos resulta altamente eficaz, siempre y cuando este acompañado de una dieta adecuada a las condiciones y necesidades de cada persona</p>
+                                </div>
+                            </div>
+                            <div class="small-12 large-3 columns text-center">
+                                <div class="serv">
+                                    <div class="circle-border">
+                                        <div class="circle">
+                                            <div class="icon-mobile2 icon-services"></div>
+                                        </div>
+                                    </div>
+                                    <h3>Calculadoras</h3>
+                                    <p>Nuestras calculadoras te dirá cuántas calorías deberías ingerir por día para mantener tu peso o cuántas calorías son necesarias para conseguir los objetivos de peso que desee, avisándote cuándo los planes no son saludables</p>
+                                </div>
+                            </div>
+                            <div class="small-12 large-3 columns text-center">
+                                <div class="serv">
+                                    <div class="circle-border">
+                                        <div class="circle">
+                                            <div class="icon-podcast icon-services"></div>
+                                        </div>
+                                    </div>
+                                    <h3>Informacion</h3>
+                                    <p> Gimnasio para gente de toda edad, ambiente acogedor en donde todos somos amigos. Nos esforzamos cada día por brindar el mejor servicio, asesorando con rutinas específicas a nuestros clientes deacuerdo a sus necesidades , tambien creamos dietas y tenemos servicio de snack.
+Información General
+El local cuenta con una gran variedad de aparatos de musculación, caminadoras, máquinas elíticas,bicicletas de spinning, salón para baile,boxeo y aeróbicos, se cuentacon casilleros personales y baños con duchas.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        <!-- PORTFOLIO SLIDER-->      
+            <div id="portfolio" class="row">
+                <div class="small-12 columns small-centered text-center">
+                    <h2 class="portfolio-title">GALERIA</h2>
+                    <div id="slider_container_2">
+
+                        <div id="SliderName_2" class="SliderName_2">
+                            <img src="/static/img/d.jpg" width="1200" height="550" alt="Demo2 first" title="Demo2 first" usemap="#img1map" />
+                            <map name="img1map">
+                                <area href="#img1map-area1" shape="rect" coords="100,100,200,200" />
+                                <area href="#img1map-area2" shape="rect" coords="300,100,400,200" />
+                            </map>
+                            <div class="SliderName_2Description">FitWeb: <strong>Dieta&Nutricion</strong></div>
+                            <img src="/static/img/b.jpg" width="1200" height="550" alt="Demo2 second" title="Demo2 second" />
+                            <div class="SliderName_2Description">FitWeb: <strong>Dieta&Nutricion</strong></div>
+                            <img src="/static/img/c.jpeg" width="1200" height="550" alt="Demo2 third" title="Demo2 third" />
+                            <div class="SliderName_2Description">FitWeb: <strong>Dieta&Nutricion</strong></div>
+                            <img src="/static/img/a.jpg" width="1200" height="550" alt="Demo2 fourth" title="Demo2 fourth" />
+                            <div class="SliderName_2Description">FitWeb: <strong>Dieta&Nutricion</strong></div>
+                            <img src="/static/img/e.jpg" width="1200" height="550" alt="Demo2 fourth" title="Demo2 fourth" />
+                            <div class="SliderName_2Description">FitWeb: <strong>Dieta&Nutricion</strong></div>
+                        </div>
+                
+                        <div class="c"></div>
+                        <div id="SliderNameNavigation_2"></div>
+                        <div class="c"></div>
+
+                        <script type="text/javascript">
+                            effectsDemo2 = 'rain,stairs,fade';
+                            var demoSlider_2 = Sliderman.slider({container: 'SliderName_2', width: 1200, height: 550, effects: effectsDemo2,
+                                display: {
+                                    autoplay: 3000,
+                                    loading: {background: '#000000', opacity: 0.5, image: 'img/loading.gif'},
+                                    buttons: {hide: true, opacity: 1, prev: {className: 'SliderNamePrev_2', label: ''}, next: {className: 'SliderNameNext_2', label: ''}},
+                                    description: {hide: true, background: '#000000', opacity: 0.4, height: 50, position: 'bottom'},
+                                    navigation: {container: 'SliderNameNavigation_2', label: '<img src="img/clear.gif" />'}
+                                }
+                            });
+                        </script>
+
+                        <div class="c"></div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+
+{%endblock%}

@@ -1,0 +1,126 @@
+{%extends "base.html"%}
+{%block link%}
+    <link rel="stylesheet" type="text/css" href="/static/css/mystyle.css">
+{%endblock%}
+{%block inicio %}
+<!-- INTRO -->
+       <!-- LOGIN -->
+        <div id="login">
+            <form action="" method="post">
+                <h2 id="titulologin">Bienvenido Admin</h2>
+                                
+                <input type="submit" value="Salir" id="enviar">
+            </form>
+            
+        </div>
+       <div id="intro" class="row">            
+        <!-- BANNER -->
+            <div class="small-12 columns text-center title">
+                <div class="fixed-title">
+                    <div class="intro-info">
+                        <img src="/static/img/logo.png" alt="" />
+                        <h1>FitWEB</h1>
+                        <div class="lines lines-center"></div>
+                        <h2>Dieta&nutricioN</h2>
+                    </div>
+                </div>  
+                <a href="#services">
+                    <div class="arrow-up"></div>
+                </a>    
+            </div>
+        </div>
+{%endblock%}
+
+{%block menuli%}
+    Salir
+{%endblock%}
+
+{%block menu%}
+                        <li>
+                            <a href="/registrar/">
+                            <div class="icon-users"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">Registar</span>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="/registrar_maquina/">
+                            <div class="icon-users"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">RegMaquina</span>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="/registrar_modalidad/">
+                            <div class="icon-users"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">RegModalidad</span>
+                            </div>
+                        </li>                        
+{%endblock%}
+
+{%block contenido%}
+   
+        <div class="wrapper">
+<!-- SERVICIOS -->   
+            <div id="services" class="row">
+                <div class="small-11 large-10 columns small-centered text-center">
+                    <h2>Servicios</h2>
+                    <div class="lines"></div>
+                </div>
+                <div class="row">
+                    <div class="small-11 large-10 columns small-centered">
+                        <div class="row">
+                            <div class="small-12 large-3 columns text-center">
+                                <div class="serv">
+                                    <div class="circle-border">
+                                        <div class="circle">
+                                            <div class="icon-google icon-services"></div>
+                                        </div>
+                                    </div>
+                                    <h3>Gimnasio</h3>
+                                    <p>Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor.</p>
+                                </div>
+                            </div>
+                            <div class="small-12 large-3 columns text-center">
+                                <div class="serv">
+                                    <div class="circle-border">
+                                        <div class="circle">
+                                            <div class="icon-quill icon-services"></div>
+                                        </div>
+                                    </div>
+                                    <h3>Control</h3>
+                                    <p>Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor</p>
+                                </div>
+                            </div>
+                            <div class="small-12 large-3 columns text-center">
+                                <div class="serv">
+                                    <div class="circle-border">
+                                        <div class="circle">
+                                            <div class="icon-mobile2 icon-services"></div>
+                                        </div>
+                                    </div>
+                                    <h3>Calculadoras</h3>
+                                    <p>Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor</p>
+                                </div>
+                            </div>
+                            <div class="small-12 large-3 columns text-center">
+                                <div class="serv">
+                                    <div class="circle-border">
+                                        <div class="circle">
+                                            <div class="icon-podcast icon-services"></div>
+                                        </div>
+                                    </div>
+                                    <h3>Info</h3>
+                                    <p>Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        
+{%endblock%}

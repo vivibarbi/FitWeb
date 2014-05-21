@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{%block contenido%}
+
+	<div class="wrapper">
+		<form method="post" action="" id="formulario">
+			{% csrf_token%}
+			{{ formulario.as_p}}
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+	
+{%endblock%}

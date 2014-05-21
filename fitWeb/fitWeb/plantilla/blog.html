@@ -1,0 +1,25 @@
+{%extends "base.html"%}
+
+{%block intro%} 
+    <a href="/../">
+        <div class="icon-home2"></div>
+            <div class="menu-item">
+                <span class="item-hide">Inicio</span>
+        </div>
+    </a>
+{%endblock%}
+
+{%block contenido%}
+
+<div class="wrapper">
+	<h1>Blog ^.^</h1>
+
+	{%for post in posts%}
+	<h2>{{post.title}}</h2>
+	<p>Escrito por: {{post.author}} </p>
+	<p>{{post.time}}</p>
+	<p>{{post.body}}</p>
+	<!--<p>{{MEDIA_URL}} </p>-->
+	{%endfor%}
+</div>
+{%endblock%}

@@ -1,0 +1,28 @@
+{%extends "base.html"%}
+
+<!--<script>
+  	$(function() {
+	    $( "#dialog" ).dialog();
+  	});
+</script>
+-->
+{%block contenido%}
+<div class="wrapper">
+	<h1>LOGIN</h1>
+	<div>
+		<form action="" method="post">
+			<h2>Login</h2>
+			{% csrf_token %}
+			{{login.as_ul}}
+			<input type="submit" value="Enviar">
+		</form>
+		<div class="errores">
+			<!--<div id="dialog" title="Basic dialog">
+			  	<p>Usuario no registrado</p>
+			</div>-->
+			{{error}}
+		</div>
+		<!--<a href="/registrar/">Registrar</a>-->
+	</div>
+</div>
+{%endblock%}
