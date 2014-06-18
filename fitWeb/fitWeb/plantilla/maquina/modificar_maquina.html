@@ -1,0 +1,19 @@
+{%extends "base3.html"%}
+
+{%block maquina%}
+
+	<div class="wrapper">
+		<div class="form" id="formulario">		
+		<div >
+			<form action="" method="post">
+				<h2> Modificar Maquina</h2>
+				{%csrf_token%}
+				{{form.as_p}}
+				<input type="submit" value="Enviar"/>
+			</form>
+			
+		</div>
+		</div>
+	</div>
+	
+{%endblock%}

@@ -1,0 +1,21 @@
+{%extends "base2.html"%}
+
+{%block profesional%}
+<div class="wrapper">
+	<div class="form" id="formulario">		
+		<div >
+		<form>
+		<h2>Busqueda profesional</h2></div><br><br>
+		
+		{% for item in lista%}
+			<li>
+				{{item.nombre}} {{item.apellidos}} 
+			</li><br><br><br>
+			<a href="/profesional/modificar_profesional/{{item.id}}/">Modificar</a>
+		
+		{%endfor%}
+		</form>
+	</div>
+	</div>
+</div>
+{%endblock%}

@@ -1,0 +1,22 @@
+{%extends "base1.html"%}
+
+{%block cliente%}
+
+<div class="wrapper">
+	<div class="form" id="formulario">		
+		<div >
+		<form action="" method="post" id="busqueda">
+			<h2>Buscar cliente</h2></div><br><br>
+			{%csrf_token%}
+			{{form.as_p}}
+			<input type="submit" value="Enviar"/>
+			
+		</form>
+		</div>
+	</div>
+	<div id="resultados">
+		<!--<a href="/resultados/">resultados</a>-->
+	</div>
+</div>
+
+{%endblock%}

@@ -1,0 +1,21 @@
+{%extends "base2.html"%}
+
+{%block profesional%}
+
+	<div class="wrapper">
+		<div class="form">		
+		<div id="formularios">
+			<form action="" method="post" enctype="multipart/form-data">
+				<h2> Registro Profesional</h2>
+				{%csrf_token%}
+				{{usform.as_p}}
+				<input type="submit" value="Enviar"/>
+			</form>
+			<div class="errores">
+				{{error}}
+			</div>
+		</div>
+		</div>
+	</div>
+	
+{%endblock%}

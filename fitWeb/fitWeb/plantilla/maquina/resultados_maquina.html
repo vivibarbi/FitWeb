@@ -1,0 +1,21 @@
+{%extends "base3.html"%}
+
+{%block maquina%}
+<div class="wrapper">
+<div class="form" id="formulario">		
+		<div >		
+		<form>
+		<h2>Busqueda maquina</h2></div><br><br>
+		
+		{% for item in lista%}
+			<li>
+				{{item.nombre}}
+			</li><br><br><br>
+			<a href="/maquina/modificar_maquina/{{item.id}}/">Modificar</a>
+		
+		{%endfor%}
+		</form>
+	</div>
+	</div>
+</div>
+{%endblock%}

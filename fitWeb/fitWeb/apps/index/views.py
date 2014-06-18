@@ -1,93 +1,209 @@
-# -*- coding: utf-8 -*
+#-*- coding: utf-8 -*
 from django.shortcuts import render,render_to_response
+from django.contrib.auth.models import User, Group #importamos los modelos User y Group de django
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
+from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext, loader, Context
 from django.http import HttpResponse, HttpResponseRedirect
+from django.db.models import Q
 from models import *
 from forms import *
 import datetime
+import json
 from django.core.mail import EmailMessage
+import pdb
 
+"""INDEX"""
 def PaginaPrincipal(request):
-	errorMsn=""
-	if request.method=="POST":
-		log=Login(request.POST)
-		if log.is_valid():
-			data=log.cleaned_data
-			s=persona.objects.filter(nick=data["nick"],password=data["password"])
-			usuarios=request.POST['nick']			
-			pw=request.POST['password']
-			u=persona.objects.get(nick=usuarios,password=pw)
-			if (len(s)>0):
-				#s=persona.objects.filter(tipo=data["tipo"])
-				#### redireccionar ###
-				if u.tipo=='admin':
-					return HttpResponseRedirect("/index_admin/")
-				else:
-					return HttpResponseRedirect("/index_user/")
-			else:
-				#errorMsn="nombre de usuario incorrecto"
-				return render_to_response('nousuario.html',{},RequestContext(request))
-		else:
-			errorMsn="datos invalidos"
-	login=Login()
+	#preguntamos si el usuario inicio session
+    if request.user.is_authenticated():
+        if request.user.is_superuser:
+        	return HttpResponseRedirect("/index_admin/")
+        else:
+        	return HttpResponseRedirect("/index_user/")
+    else:
+        if request.method=='POST':
+            formulario=AuthenticationForm(request.POST)
+            if formulario.is_valid:
+                usuario=request.POST['username']
+                contrasena=request.POST['password']
+                acceso=authenticate(username=usuario,password=contrasena)
+                if acceso is not None:
+                    if acceso.is_active:
+                        if acceso.is_superuser:
+                        	login(request,acceso)
+                        	return HttpResponseRedirect("/index_admin/")
+                        else:
+                        	login(request,acceso)
+                        	return HttpResponseRedirect("/index_user/")
+                    else:
+                    	return HttpResponseRedirect("/noactivo/")
+                else:
+                    return HttpResponseRedirect("/nousuario/")
+        else:
+            formulario=AuthenticationForm()
+        return render_to_response('index.html',{'formulario':formulario},context_instance=RequestContext(request))
 
-	if request.method == 'POST':
-		form = Formulario(request.POST)
-		if form.is_valid():
-			return HttpResponseRedirect('/fitWeb/apps/gracias/')
-	else:
-		form = Formulario()
+def nousuario(request):
+	return render_to_response("nousuario.html",{},RequestContext(request))
 
-	return render_to_response("index.html",{"login":login,"error":errorMsn,"form":form},RequestContext(request))
+def noactivo(request):
+	return render_to_response("noactivo.html",{},RequestContext(request))
 
+	"""ADMIN"""
 def index_admin(request):
 	return render_to_response("index_admin.html",{},RequestContext(request))
 
-def index_user(request):
-	return render_to_response("index_user.html",{},RequestContext(request))
+"""CLIENTES"""
+def clientes(request):
+	return render_to_response("cliente/clientes.html",{},RequestContext(request))
 
-def login(request):
+def registrar_usuario(request):
+    if request.method=='POST':
+        formulario=UserCreationForm(request.POST)
+        formulario2=fregistro(request.POST,request.FILES)
+        if formulario.is_valid() and formulario2.is_valid():
+        	usuario=request.POST['username']
+        	formulario.save()     	
+        	anio=request.POST['fecha_nacimiento_year']
+        	mes=request.POST['fecha_nacimiento_month']
+        	dia=request.POST['fecha_nacimiento_day']
+        	fecha_nacimiento=anio+"-"+mes+"-"+dia
+        	imagen=request.FILES['imagen']
+        	sexo=request.POST['sexo']
+        	ci=request.POST['ci']
+        	telefono=request.POST['telefono']
+        	nuevo_usuario=User.objects.get(username=usuario)
+        	perfil=Persona.objects.create(user=nuevo_usuario,fecha_nacimiento=fecha_nacimiento,imagen=imagen,sexo=sexo,ci=ci,telefono=telefono)
+       		error=False
+       		mensaje="El cliente fue registrado"
+       		return render_to_response('cliente/notificacion.html',{'error':error,'mensaje':mensaje},RequestContext(request))
+    else:
+    	formulario=UserCreationForm()
+        formulario2=fregistro()
+    return render_to_response("cliente/registrar.html",{'formulario':formulario,'formulario2':formulario2},context_instance=RequestContext(request))
+	
+def buscarCliente(request):
+	if request.method=="POST":
+		form=buscarForm(request.POST)
+		if form.is_valid():
+			busc=request.POST["buscar"]
+			if busc!="":
+				data=busc.split()
+				lista=User.objects.filter(Q(first_name__contains=busc)|Q(last_name__contains=busc)|Q(username__contains=busc))
+			return render_to_response("cliente/resultados.html",{"lista":lista},RequestContext(request))
+	form=buscarForm()
+	return render_to_response("cliente/buscarCliente.html",{"form":form},RequestContext(request))
+
+def modificar_cliente(request,id):
+	if request.method=='POST':
+		usuario=User.objects.get(id=int(id))
+		cliente=Persona.objects.get(user=usuario)
+		formulario=fpersona(request.POST,request.FILES,instance=cliente)
+		formulario2=fusuario(request.POST,instance=usuario)
+		if formulario.is_valid():
+			formulario.save()
+			formulario2.save()
+			return HttpResponseRedirect("/guardar/")
+	else:
+		usuario=User.objects.get(id=int(id))
+		cliente=Persona.objects.get(user=usuario)
+		formulario=fpersona(instance=cliente)
+		formulario2=fusuario(instance=usuario)
+	return render_to_response("cliente/modificar_registro.html",{'formulario':formulario,'formulario2':formulario2},RequestContext(request))
+
+def listarClientes(request):
+	lista=list(Persona.objects.all())
+	lista2=list(User.objects.all())
+	return render_to_response("cliente/listarClientes.html",{"lista":lista,"lista2":lista2},RequestContext(request))
+
+	"""PROFESIONALES"""
+def profesionales(request):
+	return render_to_response("profesional/profesionales.html",{},RequestContext(request))
+
+def registrar_profesional(request):
 	errorMsn=""
 	if request.method=="POST":
-		log=Login(request.POST)
-		if log.is_valid():
-			data=log.cleaned_data
-			s=persona.objects.filter(nick=data["nick"],password=data["password"])
-			if (len(s)>0):
-				return HttpResponseRedirect("/../")
-			else:
-				errorMsn="nombre de usuario incorrecto"
-		else:
-			errorMsn="datos invalidos"
-	login=Login()
-	return render_to_response("login.html",{"login":login,"error":errorMsn},RequestContext(request))
-
-def registrar(request):
-	errorMsn=""
-	if request.method=="POST":
-		us=UsuarioForm(request.POST)
-		p=us.save(commit=False)
-		p.fecha=datetime.datetime.now().date()
+		us=ProfesionalForm(request.POST,request.FILES)
 		if us.is_valid():
 			us.save()
-			#errorMsn="Datos guardados"
-			return HttpResponseRedirect('/fitWeb/apps/guardar/')
+			return HttpResponseRedirect('/profesional/profesionales/')
 		else:
 			errorMsn="Datos invalidos"
-	us=UsuarioForm()
-	return render_to_response("registrar.html",{"usform":us,"error":errorMsn},RequestContext(request))
+	us=ProfesionalForm()
+	return render_to_response("profesional/registrar_profesional.html",{"usform":us,"error":errorMsn},RequestContext(request))
+
+def modificar_profesional(request,id):
+	prof=profesional.objects.get(id=id)
+	if request.method=="POST":
+		form=ProfesionalForm(request.POST,request.FILES,instance=prof)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect("/guardar/")
+	else:
+		form=ProfesionalForm(instance=prof)
+	return render_to_response("profesional/modificar_profesional.html",{"form":form},RequestContext(request))
+	
+def buscar_profesional(request):
+	if request.method=="POST":
+		form=buscarForm(request.POST)
+		if form.is_valid():
+			criterio=request.POST["buscar"]
+			if criterio!="":
+				lista=profesional.objects.filter(Q(nombre__contains=criterio)|Q(apellidos__contains=criterio))
+			return render_to_response("profesional/resultados_prof.html",{"lista":lista},RequestContext(request))
+	form=buscarForm()
+	return render_to_response("profesional/buscar_profesional.html",{"form":form},RequestContext(request))
+
+def listar_profesionales(request):
+	lista=list(profesional.objects.all())
+	return render_to_response("profesional/listar_profesionales.html",{"lista":lista},RequestContext(request))	
+
+	"""MAQUINAS"""
+def maquinas(request):
+	return render_to_response("maquina/maquinas.html",{},RequestContext(request))
 
 def registrar_maquina(request):
 	errorMsn=""
 	if request.method=="POST":
-		us=MaquinaForm(request.POST)
+		us=MaquinaForm(request.POST,request.FILES)
 		if us.is_valid():
 			us.save()
 			return HttpResponseRedirect('/index_admin/')
 		else:
 			errorMsn="Datos invalidos"
 	us=MaquinaForm()
-	return render_to_response("registrar_maquina.html",{"usform":us,"error":errorMsn},RequestContext(request))
+	return render_to_response("maquina/registrar_maquina.html",{"usform":us,"error":errorMsn},RequestContext(request))
+
+def modificar_maquina(request,id):
+	maq=maquina.objects.get(id=id)
+	if request.method=="POST":
+		form=MaquinaForm(request.POST,request.FILES,instance=maq)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect("/guardar/")
+	else:
+		form=MaquinaForm(instance=maq)
+	return render_to_response("maquina/modificar_maquina.html",{"form":form},RequestContext(request))	
+
+def buscar_maquina(request):
+	if request.method=="POST":
+		form=buscarForm(request.POST)
+		if form.is_valid():
+			criterio=request.POST["buscar"]
+			if criterio!="":
+				lista=maquina.objects.filter(Q(nombre__contains=criterio))
+			return render_to_response("maquina/resultados_maquina.html",{"lista":lista},RequestContext(request))
+	form=buscarForm()
+	return render_to_response("maquina/buscar_maquina.html",{"form":form},RequestContext(request))
+
+def listar_maquinas(request):
+	lista=list(maquina.objects.all())
+	return render_to_response("maquina/listar_maquinas.html",{"lista":lista},RequestContext(request))	
+
+	"""MODALIDADES"""
+def modalidades(request):
+	return render_to_response("modalidad/modalidades.html",{},RequestContext(request))
 
 def registrar_modalidad(request):
 	errorMsn=""
@@ -95,16 +211,157 @@ def registrar_modalidad(request):
 		us=ModalidadForm(request.POST)
 		if us.is_valid():
 			us.save()
-			return HttpResponseRedirect('/index_admin/')
+			return HttpResponseRedirect('/guardar/')
 		else:
 			errorMsn="Datos invalidos"
 	us=ModalidadForm()
-	return render_to_response("registrar_modalidad.html",{"usform":us,"error":errorMsn},RequestContext(request))
+	return render_to_response("modalidad/registrar_modalidad.html",{"usform":us,"error":errorMsn},RequestContext(request))
+
+def modificar_modalidad(request,id):
+	mod=modalidad.objects.get(id=id)
+	if request.method=="POST":
+		form=ModalidadForm(request.POST,instance=mod)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect("/guardar/")
+	else:
+		form=ModalidadForm(instance=mod)
+	return render_to_response("modalidad/modificar_modalidad.html",{"form":form},RequestContext(request))	
+
+def buscar_modalidad(request):
+	if request.method=="POST":
+		form=buscarForm(request.POST)
+		if form.is_valid():
+			criterio=request.POST["buscar"]
+			if criterio!="":
+				lista=modalidad.objects.filter(Q(nombre__contains=criterio))
+			return render_to_response("modalidad/resultados_modalidad.html",{"lista":lista},RequestContext(request))
+	form=buscarForm()
+	return render_to_response("modalidad/buscar_modalidad.html",{"form":form},RequestContext(request))
+
+def listar_modalidades(request):
+	lista=list(modalidad.objects.all())
+	return render_to_response("modalidad/listar_modalidades.html",{"lista":lista},RequestContext(request))	
+
+"""ALIMENTOS"""
+def alimentos_view(request):
+	return render_to_response("alimento/alimentos.html",{},RequestContext(request))
+
+def registrar_alimento(request):
+	errorMsn=""
+	if request.method=="POST":
+		us=AlimentosForm(request.POST,request.FILES)
+		if us.is_valid():
+			us.save()
+			return HttpResponseRedirect('/guardar/')
+		else:
+			errorMsn="Datos invalidos"
+	us=AlimentosForm()
+	return render_to_response("alimento/registrar_alimento.html",{"usform":us,"error":errorMsn},RequestContext(request))
+
+def modificar_alimento(request,id):
+	alim=alimentos.objects.get(id=id)
+	if request.method=="POST":
+		form=AlimentosForm(request.POST,request.FILES,instance=alim)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect("/guardar/")
+	else:
+		form=AlimentosForm(instance=alim)
+	return render_to_response("alimento/modificar_alimento.html",{"form":form},RequestContext(request))	
+
+def buscar_alimento(request):
+	if request.method=="POST":
+		form=buscarForm(request.POST)
+		if form.is_valid():
+			criterio=request.POST["buscar"]
+			if criterio!="":
+				lista=alimentos.objects.filter(Q(nombre__contains=criterio))
+			return render_to_response("alimento/resultados_alimento.html",{"lista":lista},RequestContext(request))
+	form=buscarForm()
+	return render_to_response("alimento/buscar_alimento.html",{"form":form},RequestContext(request))
+
+def listar_alimentos(request):
+	lista=list(alimentos.objects.all())
+	return render_to_response("alimento/listar_alimentos.html",{"lista":lista},RequestContext(request))	
+
+"""DIETAS"""
+def dietas_view(request):
+	return render_to_response("dietas/dietas.html",{},RequestContext(request))
+
+def registrar_dieta(request):
+	errorMsn=""
+	if request.method=="POST":
+		us=DietasForm(request.POST,request.FILES)
+		if us.is_valid():
+			us.save()
+			return HttpResponseRedirect('/guardar/')
+		else:
+			errorMsn="Datos invalidos"
+	us=DietasForm()
+	return render_to_response("dietas/registrar_dieta.html",{"usform":us,"error":errorMsn},RequestContext(request))
+
+def modificar_dieta(request,id):
+	diet=dietas.objects.get(id=id)
+	if request.method=="POST":
+		form=DietasForm(request.POST,request.FILES,instance=diet)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect("/guardar/")
+	else:
+		form=DietasForm(instance=diet)
+	return render_to_response("dietas/modificar_dieta.html",{"form":form},RequestContext(request))
+	
+def buscar_dieta(request):
+	if request.method=="POST":
+		form=buscarForm(request.POST)
+		if form.is_valid():
+			criterio=request.POST["buscar"]
+			if criterio!="":
+				lista=dietas.objects.filter(Q(nombre__contains=criterio))
+			return render_to_response("dietas/resultados_dieta.html",{"lista":lista},RequestContext(request))
+	form=buscarForm()
+	return render_to_response("dietas/buscar_dieta.html",{"form":form},RequestContext(request))
+
+def listar_dietas(request):
+	lista=list(dietas.objects.all())
+	return render_to_response("dietas/listar_dietas.html",{"lista":lista},RequestContext(request))	
+
+	"""USER"""
+def index_user(request):
+	return render_to_response("index_user.html",{},RequestContext(request))
+
+"""def mi_perfil(request,nombre):
+	usuario=User.objects.get(username=nombre)
+	context = {
+		'usuario' : usuario,
+		'nombre' : usuario.get_full_name(),
+        'perfil' : usuario.get_profile(),
+	}
+	return render_to_response("cliente/perfil.html",context,RequestContext(request))
+"""
+def mostrar_usuario(request,id):
+    usuario=User.objects.get(id=int(id))
+    context = {
+        'usuario'  : usuario,
+        'nombre' : usuario.get_full_name(),
+        'perfil' : usuario.get_profile(),
+        }
+    return render_to_response("cliente_usuario/usuario_perfil.html",context,context_instance=RequestContext(request))
+
+def calculadoras(request):
+	return render_to_response("cliente_usuario/calculadoras.html",{},RequestContext(request))
 
 def guardar(request):
-	html='<html><body>"Usuario registrado.. <br><br><a href="/index_admin/">Atras</a></body></html>"'
-	return HttpResponse(html)
+	return render_to_response("guardar.html",{},RequestContext(request))
 
+def notificacion(request):
+	return render_to_response("notificacion.html",{},RequestContext(request))
+
+def salir(request):
+	logout(request)
+	return HttpResponseRedirect('/')
+	
 def blog(request):
 	posts = BlogPost.objects.all()
 	return render_to_response("blog.html",{'posts':posts},RequestContext(request))	
@@ -137,6 +394,47 @@ def contacto_email(request):
 	else:
 		formulario = FormularioContacto()
 	return render_to_response("contacto_email.html",{'formulario':formulario},RequestContext(request))
+
+def verificar(request):
+    if request.method=='POST':
+        usuario=request.POST['username']
+        try:
+            u=User.objects.get(username=usuario)
+            return HttpResponse("El usuario ya existe, cambie otro")
+        except User.DoesNotExist:
+            return HttpResponse("Puede usar ese nombre")
+    else:
+        return HttpResponse()
+
+
+
+"""def buscar(request):
+	if request.method=='POST':
+		q=request.POST['tbuscar']
+		busqueda = (
+			Q(nombre__icontains=q) |
+			Q(documento__titulo__icontains=q) |
+			Q(documento__genero__icontains=q) |
+			Q(documento__sinopsis__istartswith=q) |
+			Q(documento__sinopsis__iendswith=q)
+			)
+		resultado=Tag.objects.filter(busqueda).distinct()
+		documento=Documento.objects.filter(tag__in=resultado).distinct()[:10]
+		cantidad=documento.count()
+		if request.user.is_authenticated():
+			usuario=request.user
+			idusuario = User.objects.get(username=usuario)
+			persona=Persona.objects.get(usuario=idusuario)
+			return render_to_response('principal/buscar.html',{'documento':documento,'persona':persona,'q':q,'cantidad':cantidad},context_instance=RequestContext(request))
+		return render_to_response('principal/buscar.html',{'documento':documento,'q':q,'cantidad':cantidad},context_instance=RequestContext(request))
+	else:
+		return HttpResponseRedirect('/')
+"""
+
+
+
+
+
 
 
 

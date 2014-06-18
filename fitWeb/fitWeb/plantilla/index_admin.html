@@ -1,18 +1,15 @@
 {%extends "base.html"%}
-{%block link%}
-    <link rel="stylesheet" type="text/css" href="/static/css/mystyle.css">
-{%endblock%}
-{%block inicio %}
+
+{%block contenido%}
 <!-- INTRO -->
        <!-- LOGIN -->
-        <div id="login">
+        <!--<div id="login">
             <form action="" method="post">
                 <h2 id="titulologin">Bienvenido Admin</h2>
-                                
-                <input type="submit" value="Salir" id="enviar">
             </form>
             
-        </div>
+        </div>-->
+    <div id="cabecera">
        <div id="intro" class="row">            
         <!-- BANNER -->
             <div class="small-12 columns text-center title">
@@ -21,7 +18,7 @@
                         <img src="/static/img/logo.png" alt="" />
                         <h1>FitWEB</h1>
                         <div class="lines lines-center"></div>
-                        <h2>Dieta&nutricioN</h2>
+                        <h2>Administrador</h2>
                     </div>
                 </div>  
                 <a href="#services">
@@ -29,98 +26,79 @@
                 </a>    
             </div>
         </div>
-{%endblock%}
-
-{%block menuli%}
-    Salir
-{%endblock%}
-
-{%block menu%}
+    </div>
+    <!-- MENU -->       
+        <div class="row">
+            <div class="small-12 columns small-centered text-center sticky">
+                <nav id="menu-navigation">
+                    <ul>
                         <li>
-                            <a href="/registrar/">
+                            <a href="/cliente/clientes/">
                             <div class="icon-users"></div>
                             <div class="menu-item">
-                                <span class="item-hide">Registar</span>
+                                <span class="item-hide">CLIENTES</span>
                             </div>
+                            </a>
                         </li>
                         <li>
-                            <a href="/registrar_maquina/">
-                            <div class="icon-users"></div>
+                            <a href="/profesional/profesionales/">
+                            <div class="icon-finder"></div>
                             <div class="menu-item">
-                                <span class="item-hide">RegMaquina</span>
+                                <span class="item-hide">PROFESIONALES</span>
                             </div>
+                            </a>
                         </li>
                         <li>
-                            <a href="/registrar_modalidad/">
-                            <div class="icon-users"></div>
+                            <a href="/maquina/maquinas/">
+                            <div class="icon-spinner3"></div>
                             <div class="menu-item">
-                                <span class="item-hide">RegModalidad</span>
+                                <span class="item-hide">MAQUINAS</span>
                             </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/modalidad/modalidades/">
+                            <div class=" icon-settings "></div>
+                            <div class="menu-item">
+                                <span class="item-hide">MODALIDADES</span>
+                            </div>
+                            </a>
+                        </li>  
+                        <li>
+                            <a href="/alimento/alimentos/">
+                            <div class=" icon-food "></div>
+                            <div class="menu-item">
+                                <span class="item-hide">ALIMENTOS</span>
+                            </div>
+                            </a>
+                        </li>  
+                        <li>
+                            <a href="/dietas/dietas/">
+                            <div class=" icon-leaf "></div>
+                            <div class="menu-item">
+                                <span class="item-hide">DIETAS</span>
+                            </div>
+                            </a>
                         </li>                        
-{%endblock%}
-
-{%block contenido%}
-   
-        <div class="wrapper">
-<!-- SERVICIOS -->   
-            <div id="services" class="row">
-                <div class="small-11 large-10 columns small-centered text-center">
-                    <h2>Servicios</h2>
-                    <div class="lines"></div>
-                </div>
-                <div class="row">
-                    <div class="small-11 large-10 columns small-centered">
-                        <div class="row">
-                            <div class="small-12 large-3 columns text-center">
-                                <div class="serv">
-                                    <div class="circle-border">
-                                        <div class="circle">
-                                            <div class="icon-google icon-services"></div>
-                                        </div>
-                                    </div>
-                                    <h3>Gimnasio</h3>
-                                    <p>Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor.</p>
-                                </div>
+                        <li>    
+                            <a href="/blog/">
+                            <div class="icon-newspaper"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">Blog</span>
                             </div>
-                            <div class="small-12 large-3 columns text-center">
-                                <div class="serv">
-                                    <div class="circle-border">
-                                        <div class="circle">
-                                            <div class="icon-quill icon-services"></div>
-                                        </div>
-                                    </div>
-                                    <h3>Control</h3>
-                                    <p>Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor</p>
-                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/salir/">
+                            <div class="icon-home2"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">Salir</span>
                             </div>
-                            <div class="small-12 large-3 columns text-center">
-                                <div class="serv">
-                                    <div class="circle-border">
-                                        <div class="circle">
-                                            <div class="icon-mobile2 icon-services"></div>
-                                        </div>
-                                    </div>
-                                    <h3>Calculadoras</h3>
-                                    <p>Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor</p>
-                                </div>
-                            </div>
-                            <div class="small-12 large-3 columns text-center">
-                                <div class="serv">
-                                    <div class="circle-border">
-                                        <div class="circle">
-                                            <div class="icon-podcast icon-services"></div>
-                                        </div>
-                                    </div>
-                                    <h3>Info</h3>
-                                    <p>Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-        
         </div>
         
 {%endblock%}

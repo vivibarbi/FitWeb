@@ -1,0 +1,25 @@
+{%extends "base1.html"%}
+
+{%block cliente%}
+
+<div class="wrapper">
+		<div class="form">		
+	<div id="formularios">
+		
+		<form action="" method="post" name="fregistro" enctype="multipart/form-data" id="fregistro">
+
+			<h2> Registro cliente</h2><br><br>
+			<div id="resultado">
+                
+        	</div>
+			{%csrf_token%}
+				{{formulario.as_p}}
+				{{formulario2.as_p}}
+				<input type="submit" value="Enviar" name="bregistro" />
+		</form>
+
+	</div>		
+		</div>
+</div>
+	
+{%endblock%}

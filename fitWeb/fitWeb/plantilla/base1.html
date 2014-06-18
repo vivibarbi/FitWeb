@@ -1,0 +1,93 @@
+{%extends "base.html"%}
+
+{%block contenido%}
+<!-- INTRO -->  
+       <!-- LOGIN 
+        <div id="login">
+            <form action="" method="post">
+                <h2 id="titulologin">Bienvenido </h2>
+            </form>
+            
+        </div>-->
+    <div id="cabecera">
+
+    {%block cliente%}
+       <div id="intro" class="row">            
+        <!-- BANNER -->
+            <div class="small-12 columns text-center title">
+                <div class="fixed-title">
+                    <div class="intro-info">
+                        <img src="/static/img/logo.png" alt="" />
+                        <h1>FitWEB</h1>
+                        <div class="lines lines-center"></div>
+                        <h2>Dieta&nutricioN</h2>
+                    </div>
+                </div>  
+                <a href="#services">
+                    <div class="arrow-up"></div>
+                </a>    
+            </div>
+        </div>
+    {%endblock%}
+    
+    </div>
+    <!-- MENU -->     
+        <div class="row">
+            <div class="small-12 columns small-centered text-center sticky">
+                <nav id="menu-navigation">
+                    <ul>
+                        <li>
+                            <a href="/index_admin/">
+                            <div class="icon-arrow-left3"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">ATRAS</span>
+                            </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/cliente/clientes/">
+                            <div class="icon-users"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">CLIENTES</span>
+                            </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/cliente/registrar/">
+                            <div class="icon-finder"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">REGISTRAR</span>
+                            </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/cliente/buscarCliente/">
+                            <div class="icon-spinner3"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">BUSCAR</span>
+                            </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/cliente/listarClientes/">
+                            <div class=" icon-settings "></div>
+                            <div class="menu-item">
+                                <span class="item-hide">LISTAR</span>
+                            </div>
+                            </a>
+                        </li>                        
+                        <li>
+                            <a href="/salir/">
+                            <div class="icon-home2"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">Salir</span>
+                            </div>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        
+{%endblock%}
+

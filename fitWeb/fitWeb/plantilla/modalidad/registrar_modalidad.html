@@ -1,0 +1,19 @@
+{%extends "base4.html"%}
+
+{%block modalidad%}
+
+	<div class="wrapper">
+		<div class="form" id="formulario">		
+			<form action="" method="post">
+				<h2> Registro Modalidad</h2>
+				{%csrf_token%}
+				{{usform.as_ul}}
+				<input type="submit" value="Enviar"/>
+			</form>
+			<div class="errores">
+				{{error}}
+			</div>
+		</div>
+	</div>
+	
+{%endblock%}

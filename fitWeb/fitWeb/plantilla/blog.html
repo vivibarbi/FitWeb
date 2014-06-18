@@ -1,17 +1,11 @@
 {%extends "base.html"%}
 
-{%block intro%} 
-    <a href="/../">
-        <div class="icon-home2"></div>
-            <div class="menu-item">
-                <span class="item-hide">Inicio</span>
-        </div>
-    </a>
-{%endblock%}
 
 {%block contenido%}
 
 <div class="wrapper">
+
+	<form>
 	<h1>Blog ^.^</h1>
 
 	{%for post in posts%}
@@ -21,5 +15,6 @@
 	<p>{{post.body}}</p>
 	<!--<p>{{MEDIA_URL}} </p>-->
 	{%endfor%}
+	</form>
 </div>
 {%endblock%}

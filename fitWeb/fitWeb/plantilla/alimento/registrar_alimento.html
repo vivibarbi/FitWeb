@@ -1,0 +1,21 @@
+{%extends "base5.html"%}
+
+{%block alimentos%}
+
+	<div class="wrapper">
+		<div class="form" id="formulario">
+		<div>
+			<form action="" method="post" enctype="multipart/form-data">
+				<h2> Registrar alimento</h2>
+				{%csrf_token%}
+				{{usform.as_ul}}
+				<input type="submit" value="Enviar"/>
+			</form>
+			<div class="errores">
+				{{error}}
+			</div>
+		</div>
+		</div>
+	</div>
+	
+{%endblock%}

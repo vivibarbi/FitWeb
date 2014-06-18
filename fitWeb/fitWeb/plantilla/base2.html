@@ -1,0 +1,72 @@
+{%extends "base.html"%}
+
+{%block contenido%}
+
+    <div id="cabecera">
+
+    {%block profesional%}
+       
+
+    {%endblock%}
+    
+    </div>
+    <!-- MENU -->     
+        <div class="row">
+            <div class="small-12 columns small-centered text-center sticky">
+                <nav id="menu-navigation">
+                    <ul>
+                        <li>
+                            <a href="/index_admin/">
+                            <div class="icon-arrow-left3"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">ATRAS</span>
+                            </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/profesional/profesionales/">
+                            <div class="icon-users"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">PROFESIONAL</span>
+                            </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/profesional/registrar_profesional/">
+                            <div class="icon-finder"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">REGISTRAR</span>
+                            </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/profesional/buscar_profesional/">
+                            <div class="icon-spinner3"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">BUSCAR</span>
+                            </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/profesional/listar_profesionales/">
+                            <div class=" icon-settings "></div>
+                            <div class="menu-item">
+                                <span class="item-hide">LISTAR</span>
+                            </div>
+                            </a>
+                        </li>                        
+                        <li>
+                            <a href="/salir/">
+                            <div class="icon-home2"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">Salir</span>
+                            </div>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        
+{%endblock%}
+

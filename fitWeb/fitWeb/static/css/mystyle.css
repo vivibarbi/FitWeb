@@ -1,5 +1,23 @@
+#cabecera{
+	height: 619px;
+	overflow-y: scroll;
+}
+#formularios{
+	background: url(/static/img/footer.png);
+	width: 70%;
+	margin: 0 auto;
+	padding: 2px;
+	box-shadow: 5px 5px 10px rgba(127,127,127,1);
+}
+#formulario{
+	background: url(/static/img/footer.png);
+	width: 70%;
+	margin: 0 auto;
+	padding: 2px;
+	box-shadow: 5px 5px 10px rgba(127,127,127,1);
+	height: 600px;
+}
 form{
-	
 	background: rgba(195,195,195,0.5);
 	display: inline-block;
 	width: 100%;
@@ -20,12 +38,6 @@ input{
 label{
 	display: inline-block;
 }
-#id_nick, #id_password{
-	font-size: 10px;
-	height: 25px;
-	width: 200px;
-	margin-top: -2px;
-}
 #titulologin{
 	float: left;
 	margin: 5px auto 5px;
@@ -42,21 +54,70 @@ label{
 	margin-right: -630px;
 	float: right;
 }
-
-/******registrar modalidad*****/
-#id_nombre_instructor{
-	width: 1270px;
+.fecha{
+	width: 55px;
 }
-#id_lunes, #id_martes, #id_miercoles, #id_jueves, #id_viernes, #id_sabado{
+.fecha_a{
+	width: 70px;
+}
+#enviar_login{
+	background: white;
+	margin-top: 20px;
+	margin-right: -680px;
+	float: right;
+}
+#id_username, #id_password{
+	height: 27px;
+}
+/****** clientes*****/
+#id_username, #id_password1, #id_password2, #id_ci, #id_telefono, #id_first_name, #id_last_name, #id_email{
+	width: 250px;
+}
+#id_fecha_nacimiento_day{
+	width: 50px;
+}
+ #id_fecha_nacimiento_month ,#id_fecha_nacimiento_year{
+	width: 100px;
+ }
+ #id_fecha_nacimiento{
+ 	width: 200px;
+ }
+#imagen{
+	margin-left: 750px;
+    margin-top: -1300px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(127,127,127,1);
+}
+#id_buscar{
+	margin-left: 80px;
+	margin-top: -40px;
+	width: 300px;
+}
+#tabla_cliente{
+	margin: 0 auto;
+	padding: 2px;
+}
+/****** instructor*****/
+#id_nombre, #id_apellidos, #id_direccion{
+	width: 300px;
+}
+/****** maquinas*****/
+#id_descripcion{
+	width: 850px;
+}
+#id_tipo{
+	width: 250px;
+}
+/****** modalidad*****/
+#id_nombre_instructor{
 	width: 200px;
 }
 #id_costo_sesion, #id_costo_mensual{
 	width: 400px;
 }
-#id_descripcion{
-	width: 1270px;
+#id_peso, #id_calorias{
+	width: 100px;
 }
-
 /*********	contacto *****/
 #contacto{
 	background: white;

@@ -1,0 +1,33 @@
+{%extends "base2.html"%}
+
+{%block profesional%}
+
+<div class="wrapper">
+<div class="form" id="formulario">		
+	<div >
+	<form>
+	<h2>Lista de profesionales</h2><br>
+	{%for item in lista%}
+		nombre:
+			{{item.nombre}} 
+		<br>apellidos 
+			{{item.apellidos}} 		
+		<br>imagen
+			{{item.imagen}} 		
+		<br>ci
+			{{item.ci}} 		
+		<br>direccion
+			{{item.direccion}} 		
+		<br>telefono
+			{{item.telefono}} 		
+		<br>email
+			{{item.email}} 		
+		<br>estado
+			{{item.estado}}
+		<br><br>
+	{%endfor%}
+	</form>
+	</div>
+	</div>
+</div>
+{%endblock%}

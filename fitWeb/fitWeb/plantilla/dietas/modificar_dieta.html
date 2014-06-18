@@ -1,0 +1,19 @@
+{%extends "base6.html"%}
+
+{%block dietas%}
+
+	<div class="wrapper">
+		<div class="form" id="formulario">	
+		
+			<form action="" method="post">
+				<h2> Modificar Dietas</h2>
+				{%csrf_token%}
+				{{form.as_p}}
+				<input type="submit" value="Enviar"/>
+			</form>
+		
+		</div>
+	</div>
+	
+{%endblock%}
+

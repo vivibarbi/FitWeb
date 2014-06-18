@@ -66,7 +66,7 @@ WSGI_APPLICATION = 'fitWeb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'FitWeb',
+        'NAME':'fitweb',
         'USER':'root',
         'PASSWORD':'viviana',  
         'HOST':'127.0.0.1',
@@ -99,7 +99,9 @@ STATIC_URL = '/static/'
 RUTA_PROYECTO = os.path.dirname(os.path.realpath(__file__)) 
 TEMPLATE_DIRS=(os.path.join(RUTA_PROYECTO, "plantilla"),)
 STATICFILES_DIRS=(os.path.join(RUTA_PROYECTO, "static"),)
-
+#Establecer la aplicacion para el perfil
+AUTH_PROFILE_MODULE = "cliente.cliente"
+#para acceder al perfil creado llamamos al metodo user.get_profile()
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'viviana_kitty@ymail.com'

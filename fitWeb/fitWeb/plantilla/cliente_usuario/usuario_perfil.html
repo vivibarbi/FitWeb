@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+    {% if user.is_authenticated %}
+    	<p>
+            <ul>
+                <li><h3>Bienvenido {{nombre}}</h3></li>
+                <li>Nombre de usuario : {{usuario.username}}</li>
+                <li>Email : {{usuario.email}}</li>
+                <li><h3>Datos Perfil</h3></li>
+                <li>Ci : {{perfil.ci}}</li>
+                <li>Fecha de nacimiento : {{perfil.fecha_nacimiento}}</li>
+                <li>Imagen :<img src="/media/{{perfil.imagen}}" width="100px" height="100px" /></li>
+            </ul>
+            </p>
+            <p>
+            <ul>
+                <li><a href="/modificar/perfil/{{usuario.id }}">Modificar perfil</a></li>
+            </ul>
+        </p>
+
+    {% endif %}
+{% endblock%}

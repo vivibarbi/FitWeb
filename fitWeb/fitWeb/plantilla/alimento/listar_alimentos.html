@@ -1,0 +1,35 @@
+{%extends "base5.html"%}
+
+{%block alimentos%}
+
+<div class="wrapper">
+	<div class="form" id="formulario">
+		<div>
+		<form>
+		<h2> Lista alimentos</h2>
+		<table>
+			<tr>
+				<td>NOMBRE</td>
+				<td>PESO</td>
+				<td>CALORIAS</td>
+				<td>IMAGEN</td>
+			</tr>
+
+			{%for item in lista%}
+			<tr>
+				<td> {{item.nombre}} </td>
+				<td> {{item.peso}} </td>
+				<td> {{item.calorias}} </td>
+				<td> {{item.imagen}} </td>
+			</tr>
+			{%endfor%}
+			
+		</table>
+		
+		</form>
+		</div>
+	</div>
+</div>
+
+{%endblock%}
+

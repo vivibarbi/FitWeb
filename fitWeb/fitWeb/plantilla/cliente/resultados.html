@@ -1,0 +1,27 @@
+{%extends "base1.html"%}
+
+{%block cliente%}
+
+	<div class="wrapper">
+		<div class="form" id="formulario">		
+		<div >
+		<form>
+			<h2>Busqueda cliente</h2><br><br>
+			<!--{{ lista }}-->
+			{%for item in lista%}
+
+				<li>
+					nombre de usuario :{{item.username}} 
+				</li><br><br>
+				<li>
+					{{item.first_name}} {{item.last_name}}
+				</li><br><br><br>
+				<a href="/cliente/modificar/{{item.id}}/">Modificar</a>
+
+			{%endfor%}
+			
+		</form>
+		</div>
+		</div>
+	</div>
+{%endblock%}

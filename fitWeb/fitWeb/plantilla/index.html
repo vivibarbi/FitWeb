@@ -1,32 +1,31 @@
 {%extends "base.html"%}
-{%block link%}
-    <link rel="stylesheet" type="text/css" href="/static/css/mystyle.css">
-{%endblock%}
 
-{%block menuli%}
-    Inicio
-{%endblock%}
-
-{%block inicio %}
-<!-- INTRO -->
-       <!-- LOGIN -->
-        <div id="login">
-            <form action="" method="post">
-                <h2 id="titulologin">Login</h2>
-                <div id="lista">
-                {% csrf_token %}
-                {{login.as_ul}}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+    
+    </head>
+    <body>
+    {%block contenido%}
+    <!-- INTRO -->
+        <div id="intro" class="row">
+        <!-- LOGIN -->
+            <div id="login">
+                <form action="" method="post">
+                    <h2 id="titulologin">Login</h2>
+                    <div id="lista">
+                    {% csrf_token %}
+                    {{formulario.as_ul}}
+                    </div>
+                    <input type="submit" value="Enviar" id="enviar_login">
+                </form>
+                <div class="errores">
+                    <!--<div id="dialog" title="Basic dialog">
+                        <p>Usuario no registrado</p>
+                    </div>-->
+                    {{error}}
                 </div>
-                <input type="submit" value="Enviar" id="enviar">
-            </form>
-            <div class="errores">
-                <!--<div id="dialog" title="Basic dialog">
-                    <p>Usuario no registrado</p>
-                </div>-->
-                {{error}}
-            </div>
-        </div>
-       <div id="intro" class="row">            
+            </div>    
         <!-- BANNER -->
             <div class="small-12 columns text-center title">
                 <div class="fixed-title">
@@ -34,7 +33,7 @@
                         <img src="/static/img/logo.png" alt="" />
                         <h1>FitWEB</h1>
                         <div class="lines lines-center"></div>
-                        <h2>Dieta&nutricioN</h2>
+                        <h2>Dieta&Nutricion</h2>
                     </div>
                 </div>  
                 <a href="#services">
@@ -42,11 +41,57 @@
                 </a>    
             </div>
         </div>
-{%endblock%}
-
-{%block contenido%}
-   
-<!-- SERVICIOS -->   
+    <!-- MENU -->       
+        <div class="row">
+            <div class="small-12 columns small-centered text-center sticky">
+                <nav id="menu-navigation">
+                    <ul>
+                        <li>    
+                        <a href="#intro">
+                            <div class="icon-home2"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">Inicio</span>
+                            </div>
+                        </a>
+                        </li>
+                        <li>    
+                        <a href="#services">
+                            <div class="icon-spinner3"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">Servicios</span>
+                            </div>
+                        </a>
+                        </li>
+                        <!--<li>    
+                        <a href="#team">
+                            <div class="icon-user"></div>
+                            <div class="menu-item">
+                                Tea<span class="item-hide">m</span>
+                            </div>
+                        </a>
+                        </li>-->
+                        <li>    
+                        <a href="#portfolio">
+                            <div class="icon-map"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">Galeria</span>
+                            </div>
+                        </a>
+                        </li>
+                        <li>    
+                        <a href="#contact">
+                            <div class="icon-bubble"></div>
+                            <div class="menu-item">
+                                <span class="item-hide">Contacto</span>
+                            </div>
+                        </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="wrapper">
+        <!-- SERVICES -->   
             <div id="services" class="row">
                 <div class="small-11 large-10 columns small-centered text-center">
                     <h2>Servicios</h2>
@@ -55,7 +100,7 @@
                 <div class="row">
                     <div class="small-11 large-10 columns small-centered">
                         <div class="row">
-                            <div class="small-12 large-3 columns text-center">
+                                     <div class="small-12 large-3 columns text-center">
                                 <div class="serv">
                                     <div class="circle-border">
                                         <div class="circle">
@@ -101,16 +146,30 @@ Información General
 El local cuenta con una gran variedad de aparatos de musculación, caminadoras, máquinas elíticas,bicicletas de spinning, salón para baile,boxeo y aeróbicos, se cuentacon casilleros personales y baños con duchas.</p>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-        
-        <!-- PORTFOLIO SLIDER-->      
+        <!-- BOARD -->      
+            <div id="board" class="row">
+                <div class="small-12 columns text-center full-width">
+                    <p class="big-size">GIMNASIO <span class="word-wrap"><span id="word-change">CHICK</span></span>EFICIENTE!</p>
+                    <div class="lines lines-center"></div>
+                    <p class="small-size">Aprovecha los beneficios que te brindamos.</p>  <a href="#"><div class="buy">INSCRIBETE AHORA</div></a>
+
+                </div>
+            </div>
+        <!-- THE TEAM -->       
+            <div id="team" class="row">
+                <div class="small-11 large-10 columns small-centered text-center">
+                        <!--<h2>Our Team</h2>-->
+                </div>
+            </div>
+        <!-- PORTFOLIO -->      
             <div id="portfolio" class="row">
                 <div class="small-12 columns small-centered text-center">
-                    <h2 class="portfolio-title">GALERIA</h2>
+                    <h2 class="portfolio-title">Galeria</h2>
+
                     <div id="slider_container_2">
 
                         <div id="SliderName_2" class="SliderName_2">
@@ -139,10 +198,10 @@ El local cuenta con una gran variedad de aparatos de musculación, caminadoras, 
                             var demoSlider_2 = Sliderman.slider({container: 'SliderName_2', width: 1200, height: 550, effects: effectsDemo2,
                                 display: {
                                     autoplay: 3000,
-                                    loading: {background: '#000000', opacity: 0.5, image: 'img/loading.gif'},
+                                    loading: {background: '#000000', opacity: 0.5, image: '/static/img/loading.gif'},
                                     buttons: {hide: true, opacity: 1, prev: {className: 'SliderNamePrev_2', label: ''}, next: {className: 'SliderNameNext_2', label: ''}},
                                     description: {hide: true, background: '#000000', opacity: 0.4, height: 50, position: 'bottom'},
-                                    navigation: {container: 'SliderNameNavigation_2', label: '<img src="img/clear.gif" />'}
+                                    navigation: {container: 'SliderNameNavigation_2', label: '<img src="/static/img/clear.gif" />'}
                                 }
                             });
                         </script>
@@ -150,22 +209,119 @@ El local cuenta con una gran variedad de aparatos de musculación, caminadoras, 
                         <div class="c"></div>
                     </div>
                     
+                    
                 </div>
             </div>
-            
-        <!-- CONTACTo -->
+        <!-- WINDOW -->
+            <div id="window"></div>
+        <!-- TESTIMONIALS -->
+            <div id="testimonials" class="row">
+                <div class="small-11 large-10 small-centered columns">
+                    
+            <!-- OUR CLIENTS -->
+                    
+                </div>
+            </div>
+        <!-- CONTACT -->
             <div id="contact" class="row">
                 <div class="small-11 large-10 small-centered columns text-center">
-                    <h3>Contacto</h3>
-                    <div id="contacto">
-                        <form method="post" action="/gracias/">
-                            {% csrf_token%}
-                            {{ form.as_p}}
-                            <input id="enviar_contacto" type="submit" value="Submit">
-                        </form>
+                    <h3>Contact</h3>
+                    <div class="lines"></div>
+                    <div class="row contact-wrap">
+                        <div class="small-12 large-6 columns text-left">
+                            <form action="assets/php/contact.php" method="post" data-abide>
+                                <div class="row">
+                                    <div class="large-6 columns">
+                                        <label>Name</label>
+                                        <input id="name" type="text" name="name" required placeholder="name" />
+                                    </div>
+                                    <div class="large-6 columns">
+                                        <label>Phone</label>
+                                        <input id="phone" type="text" name="phone" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-12 columns">
+                                        <label>Email</label>
+                                        <input id="email" type="email" name="email" required placeholder="mail@example.com" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-12 columns">
+                                        <label>Message</label>
+                                        <textarea id="message" name="message" placeholder="Message"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-12 columns">
+                                        <input id="submit" type="submit" name="submit" class="button [tiny small large]" value="send" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="small-12 large-3 columns text-left">
+                            <ul class="example-orbit-content" data-orbit data-options="animation:fade;                                          timer_speed:5000;                                                       pause_on_hover:false;                                                       animation_speed:500;                                                        navigation_arrows:false;                                                        bullets:true;                                                       timer:false;                                                    next_on_click:true;">
+                                <li data-orbit-slide="headline-1">
+                                    <div class="info">  <span class="icon-office city"></span><span class="info-text">Headquarters</span>
+
+                                    </div>
+                                    <div class="info">  <span class="icon-phone city"></span><span class="info-text">32 235 2132456</span>
+
+                                    </div>
+                                    <div class="info">  <span class="icon-quill city"></span><span class="info-text">head@goal.com</span>
+
+                                    </div>
+                                    <div class="info">  <span class="icon-mail2 city"></span><span class="info-text">Mitre 2020</span>
+
+                                    </div>
+                                    <div class="info">  <span class="icon-earth city"></span><span class="info-text">Rosario, Argentina</span>
+
+                                    </div>
+                                </li>
+                                <li data-orbit-slide="headline-2">
+                                    <div class="info">  <span class="icon-office city"></span><span class="info-text">Sales</span>
+
+                                    </div>
+                                    <div class="info">  <span class="icon-phone city"></span><span class="info-text">23 442 236831</span>
+
+                                    </div>
+                                    <div class="info">  <span class="icon-quill city"></span><span class="info-text">sales@goal.com</span>
+
+                                    </div>
+                                    <div class="info">  <span class="icon-mail2 city"></span><span class="info-text">Gonchy 1290</span>
+
+                                    </div>
+                                    <div class="info">  <span class="icon-earth city"></span><span class="info-text">Sevilla, España</span>
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="small-12 large-3 columns text-center">
+                            <ul class="small-block-grid-2 large-block-grid-1 text-center social-media">
+                                <li><a href="#"><span class="icon-facebook"></span></a>
+                                </li>
+                                <li><a href="#"><span class="icon-twitter"></span></a>
+                                </li>
+                                <li><a href="#"><span class="icon-instagram"></span></a>
+                                </li>
+                                <li><a href="#"><span class="icon-vimeo"></span></a>
+                                </li>
+                                <li><a href="#"><span class="icon-pinterest"></span></a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    <!-- FOOTER -->
+        <footer>
+            <div class="row">
+                <div class="small-10 columns small-centered text-center"></div>
+            </div>
+        </footer>
 
-{%endblock%}
+    {%endblock%}
+    </body>
+</html> 

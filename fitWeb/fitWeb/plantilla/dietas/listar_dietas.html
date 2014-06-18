@@ -1,0 +1,29 @@
+{%extends "base6.html"%}
+
+{%block dietas%}
+
+<div class="wrapper">
+	<div class="form" id="formulario">	
+	<div >
+	<form>
+	<h2>Lista de dietas</h2><br>
+	<table>
+			<tr>
+				<td>NOMBRE</td>
+				<td>IMAGEN</td>
+			</tr>
+
+			{%for item in lista%}
+			<tr>
+				<td> {{item.nombre}} </td>
+				<td> {{item.imagen}} </td>
+			</tr>
+			{%endfor%}
+			
+		</table>
+		
+	</form>
+	</div>
+	</div>
+</div>
+{%endblock%}

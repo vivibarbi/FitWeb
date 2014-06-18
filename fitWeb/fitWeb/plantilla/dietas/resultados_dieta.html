@@ -1,0 +1,20 @@
+{%extends "base6.html"%}
+
+{%block dietas%}
+
+<div class="wrapper">
+	<div class="form" id="formulario">		
+		<form>
+		<h2>Busqueda dieta</h2><br><br>
+		<!--lista :{{lista}}-->
+		{% for item in lista%}
+			<li>
+				{{item.nombre}} 
+			</li><br><br><br>
+			<a href="/dietas/modificar_dieta/{{item.id}}/">Modificar</a>
+		
+		{%endfor%}
+		</form>
+	</div>
+</div>
+{%endblock%}
