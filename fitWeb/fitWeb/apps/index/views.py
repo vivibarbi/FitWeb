@@ -12,6 +12,10 @@ import datetime
 import json
 from django.core.mail import EmailMessage
 import pdb
+import os
+import StringIO
+from xhtml2pdf import pisa
+from django.template.loader import render_to_string
 
 """INDEX"""
 def PaginaPrincipal(request):
@@ -42,7 +46,7 @@ def PaginaPrincipal(request):
                     return HttpResponseRedirect("/nousuario/")
         else:
             formulario=AuthenticationForm()
-        return render_to_response('index.html',{'formulario':formulario},context_instance=RequestContext(request))
+        return render_to_response('index.html',{'formulario':formulario},RequestContext(request))
 
 def nousuario(request):
 	return render_to_response("nousuario.html",{},RequestContext(request))
@@ -60,7 +64,7 @@ def clientes(request):
 
 def registrar_usuario(request):
     if request.method=='POST':
-        formulario=UserCreationForm(request.POST)
+        formulario=UserForm(request.POST)
         formulario2=fregistro(request.POST,request.FILES)
         if formulario.is_valid() and formulario2.is_valid():
         	usuario=request.POST['username']
@@ -79,9 +83,9 @@ def registrar_usuario(request):
        		mensaje="El cliente fue registrado"
        		return render_to_response('cliente/notificacion.html',{'error':error,'mensaje':mensaje},RequestContext(request))
     else:
-    	formulario=UserCreationForm()
+    	formulario=UserForm()
         formulario2=fregistro()
-    return render_to_response("cliente/registrar.html",{'formulario':formulario,'formulario2':formulario2},context_instance=RequestContext(request))
+    return render_to_response("cliente/registrar.html",{'formulario':formulario,'formulario2':formulario2},RequestContext(request))
 	
 def buscarCliente(request):
 	if request.method=="POST":
@@ -110,7 +114,7 @@ def modificar_cliente(request,id):
 		cliente=Persona.objects.get(user=usuario)
 		formulario=fpersona(instance=cliente)
 		formulario2=fusuario(instance=usuario)
-	return render_to_response("cliente/modificar_registro.html",{'formulario':formulario,'formulario2':formulario2},RequestContext(request))
+	return render_to_response("cliente/modificar_registro.html",{'formulario':formulario,'formulario2':formulario2,'cliente':cliente},RequestContext(request))
 
 def listarClientes(request):
 	lista=list(Persona.objects.all())
@@ -327,19 +331,33 @@ def listar_dietas(request):
 	lista=list(dietas.objects.all())
 	return render_to_response("dietas/listar_dietas.html",{"lista":lista},RequestContext(request))	
 
+"""REPORTES"""
+def reportes_view(request):
+	return render_to_response("reporte/reportes.html",{},RequestContext(request))
+
+def generar_pdf(html):
+	resultado=StringIO.StringIO()
+	pdf=pisa.pisaDocument(StringIO.StringIO(html.encode("UTF:8")),resultado)
+	if not pdf.err:
+		return HttpResponse(resultado.getvalue(),mimetype='application/pdf')
+	return HttpResponse("Error en generar el pdf")
+
+def crear_reporte_clientes(request):
+	usuario=User.objects.all()
+	html=render_to_string("reporte/reporte_clientes.html",{'pagesize':'A4','usuario':usuario},RequestContext(request))
+	return generar_pdf(html)
+
+def crear_reporte_profesionales(request):
+	profes=profesional.objects.all()
+	html=render_to_string("reporte/reporte_profesionales.html",{'pagesize':'A4','profes':profes},RequestContext(request))
+	return generar_pdf(html)
+
 	"""USER"""
 def index_user(request):
-	return render_to_response("index_user.html",{},RequestContext(request))
+	usuario=request.user
+	persona=Persona.objects.get(user=usuario)
+	return render_to_response("index_user.html",{'persona':persona},RequestContext(request))
 
-"""def mi_perfil(request,nombre):
-	usuario=User.objects.get(username=nombre)
-	context = {
-		'usuario' : usuario,
-		'nombre' : usuario.get_full_name(),
-        'perfil' : usuario.get_profile(),
-	}
-	return render_to_response("cliente/perfil.html",context,RequestContext(request))
-"""
 def mostrar_usuario(request,id):
     usuario=User.objects.get(id=int(id))
     context = {
@@ -347,10 +365,41 @@ def mostrar_usuario(request,id):
         'nombre' : usuario.get_full_name(),
         'perfil' : usuario.get_profile(),
         }
-    return render_to_response("cliente_usuario/usuario_perfil.html",context,context_instance=RequestContext(request))
+    return render_to_response("cliente_usuario/usuario_perfil.html",context,RequestContext(request))
 
 def calculadoras(request):
 	return render_to_response("cliente_usuario/calculadoras.html",{},RequestContext(request))
+
+def calculadora2(request):
+    if request.method=="POST":
+        formulario=calculadoraForm2(request.POST)
+        usuario=request.user
+        nuevo_usuario=User.objects.get(username=usuario)
+        cliente=Persona.objects.get(user=nuevo_usuario)
+        if formulario.is_valid():
+            sexo=cliente.sexo
+            peso=request.POST["peso"]
+            estatura=request.POST["estatura"]
+            edad=request.POST["edad"]
+            actividad=request.POST["actividad"]
+            if sexo == '1':
+                tmb = 66 + (13.7 * float(peso)) +(5 * float(estatura)) - (6.8 * float(edad))
+            else:
+                tmb = 655 + (9.6 * float(peso)) + (1.8 * float(estatura)) - (4.7 * float(edad))
+            if actividad=='Sedentario':
+                ccd = tmb * 1.2
+            if actividad=="Actividad ligera":
+                ccd = tmb * 1.375
+            if actividad=='Actividad moderada':
+                ccd = tmb * 1.55
+            if actividad=='Actividad intensa':
+                ccd = tmb * 1.725
+            if actividad=='Actividad muy intensa':
+                ccd = tmb * 1.9
+            return HttpResponse(str("metabolismo basal: ")+str(tmb)+str(" Calorias necesarias para mantener el peso: ")+str(ccd))
+    else:
+        formulario=calculadoraForm2()
+    return render_to_response("calculadors/calculadora_harris_benedict.html",{'formulario':formulario},RequestContext(request))
 
 def guardar(request):
 	return render_to_response("guardar.html",{},RequestContext(request))
@@ -402,39 +451,6 @@ def verificar(request):
             u=User.objects.get(username=usuario)
             return HttpResponse("El usuario ya existe, cambie otro")
         except User.DoesNotExist:
-            return HttpResponse("Puede usar ese nombre")
+            return HttpResponse("")
     else:
         return HttpResponse()
-
-
-
-"""def buscar(request):
-	if request.method=='POST':
-		q=request.POST['tbuscar']
-		busqueda = (
-			Q(nombre__icontains=q) |
-			Q(documento__titulo__icontains=q) |
-			Q(documento__genero__icontains=q) |
-			Q(documento__sinopsis__istartswith=q) |
-			Q(documento__sinopsis__iendswith=q)
-			)
-		resultado=Tag.objects.filter(busqueda).distinct()
-		documento=Documento.objects.filter(tag__in=resultado).distinct()[:10]
-		cantidad=documento.count()
-		if request.user.is_authenticated():
-			usuario=request.user
-			idusuario = User.objects.get(username=usuario)
-			persona=Persona.objects.get(usuario=idusuario)
-			return render_to_response('principal/buscar.html',{'documento':documento,'persona':persona,'q':q,'cantidad':cantidad},context_instance=RequestContext(request))
-		return render_to_response('principal/buscar.html',{'documento':documento,'q':q,'cantidad':cantidad},context_instance=RequestContext(request))
-	else:
-		return HttpResponseRedirect('/')
-"""
-
-
-
-
-
-
-
-

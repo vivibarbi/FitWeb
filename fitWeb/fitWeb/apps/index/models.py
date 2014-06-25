@@ -4,6 +4,7 @@ from django.contrib import *
 #from tinymce.models import HTMLField
 from PIL import *
 from django.contrib.auth.models import User
+from thumbs import ImageWithThumbsField
 
 ESTADO_VISIBLE = [1,2]
 
@@ -11,7 +12,7 @@ ESTADO_VISIBLE = [1,2]
 class Persona(models.Model):
     user = models.ForeignKey(User, unique=True)
     fecha_nacimiento=models.DateField()
-    imagen =models.ImageField(null=True,upload_to='img_usuario')
+    imagen =ImageWithThumbsField(null=True,sizes=((120,120),(48,48)),upload_to='img_usuario')
     sexo = models.IntegerField(null=False)
     ci=models.IntegerField(null=False,unique=True)
     telefono = models.IntegerField(null=True,max_length=8)
@@ -69,6 +70,13 @@ class dietas(models.Model):
 	descripcion = models.TextField()
 	def __unicode__(self):
 		return self.nombre;
+
+class Calculadora2(models.Model):	
+	peso = models.FloatField(null=False)
+	estatura = models.FloatField(null=False)
+	edad = models.IntegerField(null=False)
+	actividad = models.CharField(null=False,max_length=30)
+	persona = models.ForeignKey(Persona)
 
 class ManejadorPost(models.Manager):
 	def get_query_set(self):

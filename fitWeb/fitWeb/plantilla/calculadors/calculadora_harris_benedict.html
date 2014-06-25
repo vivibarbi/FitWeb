@@ -1,0 +1,54 @@
+{%extends "base_calculadoras.html"%}
+
+{%block subtitulo%}
+     <h2>CALCULADORA HARRIS BENEDICT</h2>
+{%endblock%}
+
+{%block calculadora%}
+    <form action="" method="post">
+        {% if formulario.errors%}
+    <h1>Errores</h1>
+    {%else%}
+    {%endif%}
+		<fieldset>
+            {% csrf_token%}
+			<div>
+				<label>Peso:</label>
+				<div>
+					<input type="text" maxlength="5" name="peso">
+					<span>cm</span>
+				</div>
+			</div>
+			<div>
+				<label>Estatura:</label>
+				<div>
+					<input type="text" maxlength="3" name="estatura">
+					<span>cm</span>
+				</div>
+			</div>
+			<div>
+				<label>Edad:</label>
+				<div>
+					<input type="text" maxlength="2" name="edad">
+					<span>años</span>
+				</div>
+			</div>
+			<div>
+				<label>Nivel de actidad:</label>
+				<select name="actividad">
+					<option selected="true">Sedentario</option>
+					<option>Actividad ligera</option>
+					<option>Actividad moderada</option>
+					<option>Actividad intensa</option>
+					<option>Actividad muy intensa</option>
+				</select>
+			</div>
+			<div>
+				<input type="submit" value="Calcular">
+			</div>
+
+		</fieldset>
+
+	</form>
+
+{%endblock%}

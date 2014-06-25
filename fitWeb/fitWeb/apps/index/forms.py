@@ -4,10 +4,13 @@ from django.forms.extras.widgets import *
 from django.contrib.auth.models import User
 from django import forms
 from models import *
+from django.contrib.auth.forms import UserCreationForm
+
 
 ESTADO=(('1','Habilitado',),('2','Dado_baja',))
 lista_anios = range(2013,1905,-1)
 SEXO = (('1','Hombre',),('2','Mujer',))
+
 
 class fpersona(forms.ModelForm):
 	class Meta():
@@ -18,6 +21,22 @@ class fusuario(forms.ModelForm):
 	class Meta():
 		model=User
 		exclude=['last_login','password','is_superuser','is_staff','date_joined','groups','user_permissions']
+
+class UserForm(UserCreationForm):
+    first_name=forms.CharField(max_length=20,required=True,label="Nombre")
+    last_name=forms.CharField(max_length=30,required=True,label="Apellidos")
+    email=forms.EmailField(required=True,widget=forms.TextInput)
+    class Meta:
+        model=User
+        fields=("username","password1","password2","first_name","last_name","is_active","email")
+    def save(self, commit=True):
+        user=super(UserForm,self).save(commit=False)
+        user.first_name=self.cleaned_data.get("first_name")
+        user.last_name=self.cleaned_data.get("last_name")
+        user.email=self.cleaned_data.get("email")
+        if commit:
+            user.save()
+        return user
 
 class fregistro(forms.ModelForm):
     fecha_nacimiento=forms.DateField(widget=SelectDateWidget(years=lista_anios))
@@ -33,9 +52,15 @@ class fregistro(forms.ModelForm):
 		model=User
 		exclude=['is_superuser','last_login','is_staff','date_joined','groups','user_permissions']
 """
+
+class calculadoraForm2(ModelForm):
+	class Meta:
+		model=Calculadora2
+		exclude = ['persona']
+
 class ProfesionalForm(forms.ModelForm):
 	estado=forms.ChoiceField(widget=forms.RadioSelect, choices=ESTADO)
-	class Meta():
+	class Meta:
 		model=profesional
 
 class MaquinaForm(forms.ModelForm):

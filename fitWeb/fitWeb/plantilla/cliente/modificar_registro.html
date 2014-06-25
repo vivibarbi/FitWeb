@@ -9,7 +9,7 @@
 			{%csrf_token%}
 				{{formulario.as_p}}
 				{{formulario2.as_p}}
-				<img src="/media/{{form.imagen.value}}" width="100px" id="imagen" />
+				<img src="/media/{{cliente.imagen.url_120x120}}" id="imagen">
 				<input type="submit" value="Enviar" name="bregistro" />
 		</form>
 

@@ -10,9 +10,10 @@
 		<h2> Lista clientes</h2>
 		<table id="tabla_cliente">
 			<tr>
-				<td>USER</td>
-				<td>NOMBRE</td>
-				<td>APELLIDO</td>
+				<th>USER</th>
+				<th>NOMBRE</th>
+				<th>APELLIDO</th>
+                <th></th>
 			</tr>
 
 			{%for item in lista2%}
@@ -20,6 +21,7 @@
 				<td> {{item.username}} </td>
 				<td> {{item.first_name}} </td>
 				<td> {{item.last_name}} </td>
+                <td><a href="/cliente/modificar/{{item.id}}/">Modificar</a></td>
 			</tr>
 			{%endfor%}
 			

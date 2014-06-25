@@ -1,20 +1,10 @@
-{%extends "base_user.html"%}
+{%extends "base_rep.html"%}
 
-{%block usuario%}
+{%block reportes%}
     
     <!-- INTRO -->
     <div id="cabecera">
-       <!-- LOGIN -->
-        <div id="login">
-            <form action="" method="post">
-                {% if user.is_authenticated %}
-                     <h2 id="titulologin">Bienvenido: <label id="user_label" style="text-transform:uppercase">{{user.first_name}} {{user.last_name}}</label></h2>
-                     <img src="/media/{{persona.imagen.url_48x48}}" id="imagen_user">
-                {% else %}
-                    no user
-                {% endif %}
-            </form>
-        </div>
+       
        <div id="intro" class="row">            
         <!-- BANNER -->
             <div class="small-12 columns text-center title">
@@ -23,7 +13,7 @@
                         <img src="/static/img/logo.png" alt="" />
                         <h1>FitWEB</h1>
                         <div class="lines lines-center"></div>
-                        <h2>Dieta&nutricioN</h2>
+                        <h2>REPORTES</h2>
                     </div>
                 </div>  
                 <a href="#services">
