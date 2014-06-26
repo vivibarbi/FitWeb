@@ -52,11 +52,16 @@ urlpatterns = patterns('',
     url(r'^dietas/modificar_dieta/(?P<id>\d+)/$',modificar_dieta),
     url(r'^dietas/listar_dietas/',listar_dietas),
 
-    url(r'^index_user/',index_user),
+    url(r'^reporte/reportes/',reportes_view), 
+    url(r'^reporte/reporte_clientes/',crear_reporte_clientes),    
+    url(r'^reporte/reporte_profesionales/',crear_reporte_profesionales),    
+
+    url(r'^index_user/$',index_user),
     #url(r'^index_user/(?P<id>\d+)/$',index_user),
     #url(r'^mi_perfil/(?P<nombre>.*)/','mi_perfil'),
     url(r'^index/(\d+)/$',mostrar_usuario),
     url(r'^cliente_usuario/calculadoras/$',calculadoras),
+    url(r'^calculadors/calculadora_harris_benedict/$',calculadora2),
     
     url(r'^blog/$',blog),
     url(r'^login/$',login),

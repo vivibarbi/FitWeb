@@ -70,6 +70,9 @@ label{
 	height: 27px;
 }
 /****** clientes*****/
+#resultado{
+    color: red;
+}
 #id_username, #id_password1, #id_password2, #id_ci, #id_telefono, #id_first_name, #id_last_name, #id_email{
 	width: 250px;
 }
@@ -82,8 +85,14 @@ label{
  #id_fecha_nacimiento{
  	width: 200px;
  }
+#user_label{
+    margin-left: 480px;
+}
+#imagen_user{
+    margin-left: 5px;
+}
 #imagen{
-	margin-left: 750px;
+	margin-left: 720px;
     margin-top: -1300px;
     border-radius: 10px;
     box-shadow: 5px 5px 10px rgba(127,127,127,1);

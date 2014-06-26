@@ -71,6 +71,12 @@ DATABASES = {
         'PASSWORD':'8505050',
     }
 }
+"""DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}"""
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -97,6 +103,7 @@ STATIC_URL = '/static/'
 RUTA_PROYECTO = os.path.dirname(os.path.realpath(__file__)) 
 TEMPLATE_DIRS=(os.path.join(RUTA_PROYECTO, "plantilla"),)
 STATICFILES_DIRS=(os.path.join(RUTA_PROYECTO, "static"),)
+MEDIA_ROOT = os.path.join(RUTA_PROYECTO,'media')
 #Establecer la aplicacion para el perfil
 AUTH_PROFILE_MODULE = "cliente.cliente"
 #para acceder al perfil creado llamamos al metodo user.get_profile()

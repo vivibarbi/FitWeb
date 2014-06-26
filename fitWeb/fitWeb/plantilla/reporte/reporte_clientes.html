@@ -1,0 +1,48 @@
+
+
+{% block reportes %}
+    <style>
+     h2{color: white; display: block; background: royalblue; padding: 10px; text-align: center;}
+     table { padding: 5px;}
+     th{ color: midnightblue; background: skyblue;}
+    </style>
+    <div>
+        <h2>Reporte clientes</h2>
+    </div>
+    <table border="1px" width="80%" align="center">
+        <th>
+            Usuario
+        </th>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Apellido
+        </th>
+        <th>
+            Habilitado
+        </th>
+        <th>
+            Fecha registrado
+        </th>
+        {% for i in usuario %}
+            <tr>
+                <td>
+                    {{ i.username }}
+                </td>
+                <td>
+                    {{ i.first_name}}
+                </td>
+                <td>
+                    {{ i.last_name }}
+                </td>
+                <td>
+                    {{ i.is_active }}
+                </td>
+                <td>
+                    {{ i.date_joined }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

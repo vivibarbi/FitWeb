@@ -7,7 +7,12 @@
        <!-- LOGIN -->
         <div id="login">
             <form action="" method="post">
-                <h2 id="titulologin">Bienvenido:</h2>
+                {% if user.is_authenticated %}
+                     <h2 id="titulologin">Bienvenido: <label id="user_label" style="text-transform:uppercase">{{user.first_name}} {{user.last_name}}</label></h2>
+                     <img src="/media/{{persona.imagen.url_48x48}}" id="imagen_user">
+                {% else %}
+                    no user
+                {% endif %}
             </form>
         </div>
        <div id="intro" class="row">            
